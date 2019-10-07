@@ -1,50 +1,35 @@
 const express = require('express');
-const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer')
-const fakeEmails = require('./faker.js')
+const server = require('./server.js')
 const app = express();
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 
-const connection = mysql.createConnection({
-    host        :   'localhost',
-    user        :   'root',
-    password    :   'password',
-    database    :   'WHITELIST'
-});
-
-
+// Total registered
 app.get("/", (req, res) => {
-    let q = 'SELECT COUNT(*) AS total FROM users ';
-    connection.query (q, (error, results) => {
-        if(error) throw error;
+    let querytotalWlCount = 'SELECT COUNT(*) AS total FROM users WHERE whitelisted = TRUE ';
+    server.connection.query (querytotalWlCount, (err, results) => {
+        if(err) throw error;
         let count = results[0].total
-        res.render("home", {count: count});
+        let totalCount = 9999;
+        res.render("home", {count: count, totalCount: totalCount});
     });
 });
 
 app.post("/register", (req, res) => {
     let person = {
-        email: req.body.email
+        email: req.body.email,
+        whitelisted: true
     }
     
-    connection.query ('INSERT INTO users SET ?', person, (error, results) => {
-        if(error) throw error;
+    server.connection.query ('INSERT INTO users SET ?', person, (err, results) => {
+        if(err) console.log(err);
         res.redirect("/");
     })
 });
-
-// insertion of fake data
-// let k = 'INSERT INTO users (email, created_at) VALUES ?';
-// connection.query(k, [fakeEmails.data], (err, result) => {
-//     if(err) throw err;
-//     else result
-// })
-// connection.end();
-
 
 app.listen(3000, () => {
     console.log('App listening on port 3000!')
