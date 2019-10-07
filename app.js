@@ -1,7 +1,8 @@
 const express = require('express');
 const mysql = require('mysql');
-const bodyParser = require("body-parser");
-const nodemailer = require("nodemailer")
+const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer')
+const fakeEmails = require('./faker.js')
 const app = express();
 
 app.set("view engine", "ejs");
@@ -12,8 +13,9 @@ const connection = mysql.createConnection({
     host        :   'localhost',
     user        :   'root',
     password    :   'password',
-    database    :   'join_us'
+    database    :   'WHITELIST'
 });
+
 
 app.get("/", (req, res) => {
     let q = 'SELECT COUNT(*) AS total FROM users ';
@@ -34,6 +36,14 @@ app.post("/register", (req, res) => {
         res.redirect("/");
     })
 });
+
+// insertion of fake data
+// let k = 'INSERT INTO users (email, created_at) VALUES ?';
+// connection.query(k, [fakeEmails.data], (err, result) => {
+//     if(err) throw err;
+//     else result
+// })
+// connection.end();
 
 
 app.listen(3000, () => {

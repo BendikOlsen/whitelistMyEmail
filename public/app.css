@@ -30,21 +30,24 @@ p {
   font-weight: 500;
 }
 
-.whitelist {
-  color: rgb(0, 0, 0);
-  font-weight: 500;
-}
 
 .form {
   line-height: 1.5;
-  border: 3px;
-  border-bottom: 3px solid #ebebeb;
+  border: 0px;
   margin-top: 80px;
   width: 500px;
   font-size: 30px;
   color: black;
   padding: 5px 10px;
   background-color: transparent;
+}
+
+input {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  background-color: #eee;
 }
 
 button {
@@ -68,4 +71,8 @@ input[type=text]:focus {
 
 button:hover{
   opacity: 1;
+}
+
+textarea:focus, input:focus{
+  outline:black;
 }
