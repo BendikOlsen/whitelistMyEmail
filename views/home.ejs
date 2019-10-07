@@ -1,0 +1,14 @@
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/app.css"
+
+
+<div class="flex-container">
+    <div class="container">
+        <h2>SIGN UP FOR LIBRO</h2>
+        <p>Enter your email to join <strong><%= count %></strong> <span class="whitelist">others on our whitelist. Only <strong><%= 10000 - count %></strong> spots left.</span></p>
+        <form method="POST" action='/register'>
+            <input type="email" name="email" class="form" placeholder="Enter your email here" required>
+            <button>Join Now</button>
+        </form>
+    </div>
+</div>
