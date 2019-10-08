@@ -3,8 +3,8 @@
 }
 
 .layer {
-  background-color: rgba(0, 0, 0, 0.3);
-  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -17,9 +17,9 @@ body {
   font-family: 'Roboto', sans-serif;
   color: rgb(202, 191, 191);
   height: 100%;
-  background-image: url('https://images.unsplash.com/photo-1552057426-c9b4e8b2aef1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80');
+  background-image: url('https://images.unsplash.com/photo-1560859581-d51f66c66233?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80');
   background-size: cover;
-  font-weight: 100;
+  font-weight: 500;
 }
   
 .flex-container {
@@ -62,15 +62,15 @@ input {
 }
 
 button {
-  line-height: 2.0;
-  border: none;
-  border:3px solid white;
+  line-height: 1.5;
+  border: 0px;
+  border:1px solid white;
   font-size: 30px;
   color: rgb(66,69,86);
-  padding: 2px 15px;
+  padding: 5px 10px;
   background: rgba(255,255,255,1.0);
-  border-radius: px;
-  opacity: 0.8;
+  border-radius: 10px;
+  opacity: 0.7;
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
