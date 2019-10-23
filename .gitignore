@@ -1,5 +1,3 @@
-/server/.nodemailer
+node_modules/
+server/
 
-/server/.server
-
-/node_modules/
