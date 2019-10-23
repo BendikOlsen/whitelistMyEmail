@@ -1,15 +1,28 @@
-<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/app.css">
-
-<div class="layer">
-    <div class="flex-container">
-        <div class="container">
-            <h2>SIGN UP FOR LIBRO</h2>
-            <p>Enter your email to join <strong><%= count %></strong> <span class="whitelist">others on our whitelist. Only <strong><%=  totalCount - count %></strong> spots left.</span></p>
-            <form method="POST" action='/register'>
-                <input type="email" name="email" class="form" placeholder="Enter your email here" required>
-                <button>Join Now</button>
-            </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/app.css"> 
+    <title>Whitelist emails</title>
+</head>
+<body>
+    <div class="layer">
+        <div class="flex-container">
+            <div class="container">
+                <h2>SIGN UP FOR LIBRO</h2>
+                <p>Enter your email to join <strong><%= count %></strong> <span class="whitelist">others on our whitelist. Only <strong><%=  totalCount - count %></strong> spots left.</span></p>
+                <form method="POST" action='/register'>
+                    <input type="email" name="email" class="form" placeholder="Enter your email here" required>
+                    <button>Join Now</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</body>
+</html>
+
+
+

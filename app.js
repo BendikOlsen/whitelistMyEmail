@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const nodemailer = require('nodemailer')
+const session = require('express-session');
+const flash = require('connect-flash');
+const nodemailer = require('nodemailer');
 const server = require('./server/server.js');
 const app = express();
 
@@ -8,10 +10,36 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 
-// Total registered
-let totalCount = 250;
 
-app.get("/", (req, res) => {
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
+}));
+
+app.use(flash())
+
+// Global variables
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+})
+
+// Total registered
+let totalCount = 15;
+
+// Gloval variables
+app.use(function(req, res, next){
+    res.locals.success_messages = req.flash('success_messages');
+    res.locals.error_messages = req.flash('error_messages');
+    next();
+});
+
+app.get('/', (req, res) => {
     let querytotalWlCount = 'SELECT COUNT(*) AS total FROM users WHERE whitelisted = TRUE ';
     server.connection.query (querytotalWlCount, (err, results) => {
 
@@ -24,8 +52,7 @@ app.get("/", (req, res) => {
     });
 });
 
-app.post("/register", (req, res) => {
-    // her skal jeg hente ut antall emails som er WL
+app.post('/register', (req, res) => {
     let querytotalWlCount = 'SELECT COUNT(*) AS total FROM users WHERE whitelisted = TRUE ';
     server.connection.query (querytotalWlCount, (err, results) => {
         if(err) {
@@ -42,15 +69,21 @@ app.post("/register", (req, res) => {
         let person = {
             email: req.body.email,
             whitelisted: whiteListed
-        };
-
+        }
+        
         server.connection.query ('INSERT INTO users SET ?', person, (err, results) => {
-            if(err) {
-                console.log(err);
-            };
+        let messages = [];
 
-            res.redirect("/");
-        })
+            if(err) {
+                console.log(err)
+                
+            }
+            if(count >= totalCount) {
+                messages.push(err)
+                req.flash('no more spots')
+            }
+            res.redirect('/')
+        });
     });
 });
 

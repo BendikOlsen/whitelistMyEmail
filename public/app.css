@@ -15,10 +15,14 @@ body {
   text-align: center;
   text-shadow: 0 .05rem .1rem rgba(94, 89, 89, 0.5);
   font-family: 'Roboto', sans-serif;
-  color: rgb(202, 191, 191);
+  color: rgb(255, 255, 255);
   height: 100%;
-  background-image: url('https://images.unsplash.com/photo-1560859581-d51f66c66233?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80');
+  background-image: url('https://images.unsplash.com/photo-1428976343495-f2c66e701b2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
+  background-color: #464646;
   font-weight: 500;
 }
   
@@ -32,7 +36,7 @@ body {
 h2{
   margin: 0;
   font-size: 70px;
-  line-height: 400px;
+  line-height: 2.5;
   font-weight: 100;
 }
 
@@ -71,6 +75,13 @@ button {
   background: rgba(255,255,255,1.0);
   border-radius: 10px;
   opacity: 0.7;
+  margin-top: 5%;
+}
+
+@media only screen and (max-width: 767px) {
+  body {
+    background-image: url('https://images.unsplash.com/photo-1428976343495-f2c66e701b2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80');
+  }
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -87,3 +98,4 @@ button:hover{
 textarea:focus, input:focus{
   outline:black;
 }
+
