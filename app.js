@@ -1,8 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require('express-session');
-const flash = require('connect-flash');
 const nodemailer = require('nodemailer');
+const mailerInfo = require('./server/nodemailer')
 const server = require('./server/server.js');
 const app = express();
 
@@ -10,34 +9,8 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 
-
-
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge: 60000 }
-}));
-
-app.use(flash())
-
-// Global variables
-app.use((req, res, next) => {
-    res.locals.success_msg = req.flash('success_msg');
-    res.locals.error_msg = req.flash('error_msg');
-    res.locals.error = req.flash('error');
-    next();
-})
-
 // Total registered
 let totalCount = 15;
-
-// Gloval variables
-app.use(function(req, res, next){
-    res.locals.success_messages = req.flash('success_messages');
-    res.locals.error_messages = req.flash('error_messages');
-    next();
-});
 
 app.get('/', (req, res) => {
     let querytotalWlCount = 'SELECT COUNT(*) AS total FROM users WHERE whitelisted = TRUE ';
@@ -71,21 +44,48 @@ app.post('/register', (req, res) => {
             whitelisted: whiteListed
         }
         
-        server.connection.query ('INSERT INTO users SET ?', person, (err, results) => {
-        let messages = [];
-
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: mailerInfo.NODEMAILER_USER,
+                pass: mailerInfo.NODEMAILER_PASS
+            }
+            
+        });
+        
+        let mailOptions = {
+            from: 'olsenwebapp@gmail.com',
+            to: req.body.email,
+            subject: 'nodemailer test',
+            text: `Thanks for believing in this project. We will contact you with further information once the whitelisting period is over.`
+        };
+        
+        transporter.sendMail(mailOptions, (err, info) => {
             if(err) {
                 console.log(err)
-                
+            } else {
+                console.log('Email sent: ' + info.response);
             }
+        });
+        
+        
+        server.connection.query ('INSERT INTO users SET ?', person, (err, results) => {
+            if(err) {
+                console.log(err)  
+            }
+
             if(count >= totalCount) {
-                messages.push(err)
-                req.flash('no more spots')
+                console.log(err)
             }
+
             res.redirect('/')
         });
     });
 });
+
+
+
+
 
 app.listen(3000, () => {
     console.log('App listening on port 3000!')
