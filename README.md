@@ -9,8 +9,8 @@ Fully working web application created with Node.js, Express.js and mysql
 * [Setup](#setup)
 
 ## General info
-This project is an mail signup. Enter your mail to enter a ICO and receive a confirmation by Nodemailer. 
-But be fast, there is only a very limited amount of people who may enter. 
+This project is an mail signup web application. 
+Enter your mail to enter an ICO and receive a confirmation mail by Nodemailer. But be fast, there is only a very limited amount of people who may enter. 
 
 ## Technologies
 This project is created with:
